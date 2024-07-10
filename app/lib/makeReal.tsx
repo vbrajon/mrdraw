@@ -56,6 +56,7 @@ export async function makeReal(editor: Editor, apiKey: string) {
 
 	// Send everything to OpenAI and get some HTML back
 	try {
+		// @ts-ignore
 		document.querySelector('.preview').innerHTML = '<div class="loading"></div>'
 
 		const json = await getHtmlFromOpenAI({
@@ -96,6 +97,7 @@ export async function makeReal(editor: Editor, apiKey: string) {
 		// 	},
 		// })
 
+		// @ts-ignore
 		document.querySelector('.preview').innerHTML = html
 
 		console.log(`Response: ${message}`)

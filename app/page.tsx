@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic'
 import '@tldraw/tldraw/tldraw.css'
 import { MakeReal } from './components/MakeReal'
 
-export const Tldraw = dynamic(async () => (await import('@tldraw/tldraw')).Tldraw, { ssr: false })
+const Tldraw = dynamic(async () => (await import('@tldraw/tldraw')).Tldraw, { ssr: false })
 
-export default function App() {
+function App() {
 	return (
 		<div className="app">
 			<div className="editor">
@@ -17,3 +17,7 @@ export default function App() {
 		</div>
 	)
 }
+
+App.editor = Tldraw
+
+export default App

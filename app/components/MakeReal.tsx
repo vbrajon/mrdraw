@@ -1,7 +1,7 @@
 import { useEditor, useToasts } from '@tldraw/tldraw'
 import { useCallback } from 'react'
 import { makeReal } from '../lib/makeReal'
-import { Tldraw } from '../page'
+import App from '../page'
 
 export function MakeReal() {
 	// const editor = useEditor()
@@ -13,7 +13,7 @@ export function MakeReal() {
 			// const apiKey = input?.value ?? null
 			// if (!apiKey) throw Error('Make sure the input includes your API Key!')
 			const apiKey = 'sk-proj-eKOXOfKTpJhHRtpav7qST3BlbkFJDyGHcjqcud1dHH5ZcfKJ'
-			await makeReal(Tldraw as any, apiKey)
+			await makeReal(App.editor as any, apiKey)
 		} catch (e) {
 			console.error(e)
 			addToast({
