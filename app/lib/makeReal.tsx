@@ -4,23 +4,25 @@ import { getHtmlFromOpenAI } from './getHtmlFromOpenAI'
 import { blobToBase64 } from './blobToBase64'
 import { addGridToSvg } from './addGridToSvg'
 import { PreviewShape } from '../PreviewShape/PreviewShape'
+import { debug } from 'console'
 
 export async function makeReal(editor: Editor, apiKey: string) {
 	// Get the selected shapes (we need at least one)
 	const selectedShapes = editor.getSelectedShapes()
+	// const selectedShapes = editor.getCamera()
 
 	if (selectedShapes.length === 0) throw Error('First select something to make real.')
 
 	// Create the preview shape
-	const { maxX, midY } = editor.getSelectionPageBounds()!
-	const newShapeId = createShapeId()
-	editor.createShape<PreviewShape>({
-		id: newShapeId,
-		type: 'response',
-		x: maxX + 60, // to the right of the selection
-		y: midY - (540 * 2) / 3 / 2, // half the height of the preview's initial shape
-		props: { html: '' },
-	})
+	// const { maxX, midY } = editor.getSelectionPageBounds()!
+	// const newShapeId = createShapeId()
+	// editor.createShape<PreviewShape>({
+	// 	id: newShapeId,
+	// 	type: 'response',
+	// 	x: maxX + 60, // to the right of the selection
+	// 	y: midY - (540 * 2) / 3 / 2, // half the height of the preview's initial shape
+	// 	props: { html: '' },
+	// })
 
 	// Get an SVG based on the selected shapes
 	const svg = await editor.getSvg(selectedShapes, {
@@ -55,6 +57,8 @@ export async function makeReal(editor: Editor, apiKey: string) {
 
 	// Send everything to OpenAI and get some HTML back
 	try {
+		document.querySelector('.preview').innerHTML = '<div class="loading"></div>'
+
 		const json = await getHtmlFromOpenAI({
 			image: dataUrl,
 			apiKey,
@@ -85,18 +89,20 @@ export async function makeReal(editor: Editor, apiKey: string) {
 		}
 
 		// Update the shape with the new props
-		editor.updateShape<PreviewShape>({
-			id: newShapeId,
-			type: 'response',
-			props: {
-				html,
-			},
-		})
+		// editor.updateShape<PreviewShape>({
+		// 	id: newShapeId,
+		// 	type: 'response',
+		// 	props: {
+		// 		html,
+		// 	},
+		// })
+
+		document.querySelector('.preview').innerHTML = html
 
 		console.log(`Response: ${message}`)
 	} catch (e) {
 		// If anything went wrong, delete the shape.
-		editor.deleteShape(newShapeId)
+		// editor.deleteShape(newShapeId)
 		throw e
 	}
 }

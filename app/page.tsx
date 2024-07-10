@@ -2,24 +2,19 @@
 
 import dynamic from 'next/dynamic'
 import '@tldraw/tldraw/tldraw.css'
-import { MakeRealButton } from './components/MakeRealButton'
-import { TldrawLogo } from './components/TldrawLogo'
-import { RiskyButCoolAPIKeyInput } from './components/RiskyButCoolAPIKeyInput'
-import { PreviewShapeUtil } from './PreviewShape/PreviewShape'
+import { MakeReal } from './components/MakeReal'
 
-const Tldraw = dynamic(async () => (await import('@tldraw/tldraw')).Tldraw, {
-	ssr: false,
-})
-
-const shapeUtils = [PreviewShapeUtil]
+const Tldraw = dynamic(async () => (await import('@tldraw/tldraw')).Tldraw, { ssr: false })
+window.editor = Tldraw
 
 export default function App() {
 	return (
-		<div className="editor">
-			<Tldraw persistenceKey="make-real" shareZone={<MakeRealButton />} shapeUtils={shapeUtils}>
-				<TldrawLogo />
-				<RiskyButCoolAPIKeyInput />
-			</Tldraw>
+		<div className="app">
+			<div className="editor">
+				<Tldraw persistenceKey="make-real"></Tldraw>
+				<MakeReal />
+			</div>
+			<div className="preview"></div>
 		</div>
 	)
 }
