@@ -31,7 +31,7 @@
 .editor {
 	position: fixed;
 	inset: 8px;
-	right: 50%;
+	right: 50%!important;
 	margin: 8px;
 	border-radius: 8px;
 	overflow: hidden;
