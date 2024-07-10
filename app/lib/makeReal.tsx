@@ -4,7 +4,6 @@ import { getHtmlFromOpenAI } from './getHtmlFromOpenAI'
 import { blobToBase64 } from './blobToBase64'
 import { addGridToSvg } from './addGridToSvg'
 import { PreviewShape } from '../PreviewShape/PreviewShape'
-import { debug } from 'console'
 
 export async function makeReal(editor: Editor, apiKey: string) {
 	// Get the selected shapes (we need at least one)
