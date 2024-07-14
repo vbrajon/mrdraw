@@ -57,7 +57,7 @@ export async function makeReal(editor: Editor, apiKey: string) {
 	// Send everything to OpenAI and get some HTML back
 	try {
 		// @ts-ignore
-		document.querySelector('.preview').innerHTML = '<div class="loading"></div>'
+		document.querySelector('.preview iframe')?.classList.add('loading')
 
 		const json = await getHtmlFromOpenAI({
 			image: dataUrl,
@@ -98,9 +98,11 @@ export async function makeReal(editor: Editor, apiKey: string) {
 		// })
 
 		// @ts-ignore
-		document.querySelector('.preview').innerHTML = html
+		document.querySelector('.preview iframe')?.classList.remove('loading')
 
 		console.log(`Response: ${message}`)
+
+		return html
 	} catch (e) {
 		// If anything went wrong, delete the shape.
 		// editor.deleteShape(newShapeId)

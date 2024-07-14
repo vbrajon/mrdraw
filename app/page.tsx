@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import '@tldraw/tldraw/tldraw.css'
 import { MakeReal } from './components/MakeReal'
+import { History } from './components/History'
 
 const Tldraw = dynamic(async () => (await import('@tldraw/tldraw')).Tldraw, { ssr: false })
 
@@ -22,7 +23,10 @@ export default function App() {
 				></Tldraw>
 				<MakeReal />
 			</div>
-			<div className="preview"></div>
+			<History />
+			<div className="preview">
+				<iframe></iframe>
+			</div>
 		</div>
 	)
 }
