@@ -14,11 +14,13 @@ const dummyHistory = [
 
 const useLocalStorageState = (key = 'history', defaultValue = dummyHistory) => {
 	const [state, setState] = useState(() => {
+		if (typeof window === 'undefined') return
 		const storedValue = localStorage.getItem(key)
 		return storedValue ? JSON.parse(storedValue) : defaultValue
 	})
 
 	useEffect(() => {
+		if (typeof window === 'undefined') return
 		localStorage.setItem(key, JSON.stringify(state))
 		// @ts-ignore
 		document.querySelector('.preview iframe').srcdoc = state.at(-1)
