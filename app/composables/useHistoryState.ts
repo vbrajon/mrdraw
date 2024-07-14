@@ -14,7 +14,7 @@ const dummyHistory = [
 
 const useLocalStorageState = (key = 'history', defaultValue = dummyHistory) => {
 	const [state, setState] = useState(() => {
-		if (typeof window === 'undefined') return
+		if (typeof window === 'undefined') return defaultValue
 		const storedValue = localStorage.getItem(key)
 		return storedValue ? JSON.parse(storedValue) : defaultValue
 	})
